@@ -2,8 +2,8 @@ import React from "react";
 
 const Navbar = () => {
   return (
-    <div>
-      <h1>Navbar</h1>
+    <div className="py-4 shadow w[100%] flex justify-center align-center">
+      Navbar
     </div>
   );
 };

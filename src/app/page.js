@@ -4,10 +4,12 @@ import Sidebar from "./components/sidebar/Sidebar";
 export default function Home() {
   return (
     <main>
-      <Navbar />
       <div className="flex flex-wrap">
-        <Sidebar />
-        <div>
+        <div className="w-[20%]">
+          <Sidebar />
+        </div>
+        <div className="w-[80%]">
+          <Navbar />
           <h1>Hello Word</h1>
         </div>
       </div>

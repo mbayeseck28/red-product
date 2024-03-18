@@ -1,12 +1,18 @@
 import React from "react";
 import Sidebar from "../components/sidebar/Sidebar";
+import Navbar from "../components/navbar/Navbar";
 
 const page = () => {
   return (
-    <main className="flex">
-      <Sidebar />
-      <div>
-        <h1>Dashboard</h1>
+    <main>
+      <div className="flex flex-wrap">
+        <div className="w-[20%]">
+          <Sidebar />
+        </div>
+        <div className="w-[80%]">
+          <Navbar />
+          <h1>Dashboard</h1>
+        </div>
       </div>
     </main>
   );
