@@ -81,9 +81,10 @@ const hotels = [
 const Wrapper = styled.div`
   background-color: white;
   box-shadow: 0px 2.6662580966949463px 2.6662580966949463px 0px #00000008;
-  padding: 1em 3%;
-  min-height: 80px;
+  padding: 1em 4%;
+  /* min-height: 80px; */
   display: flex;
+  justify-content: space-between;
   align-items: center;
 `;
 
@@ -103,18 +104,37 @@ const Centre = styled.div`
     width: 100%;
   }
 `;
+const Gauche = styled.div`
+  width: 20%;
+
+  @media only screen and (max-width: 700px) {
+    width: 0;
+  }
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #f7fafc;
+`;
+const Bouton = styled.button`
+  padding: 0.5em 1em;
+  border: 1px solid #aeaeae;
+  border-radius: 10px;
+`;
 
 const page = () => {
   return (
     <main>
-      <div className="flex flex-wrap bg-slate-100">
-        <div className="w-[20%]">
+      <Container>
+        <Gauche>
           <Sidebar />
-        </div>
+        </Gauche>
         <Centre>
           <Navbar />
           <Wrapper>
             <h1>Hôtels</h1>
+            <Bouton>Créer un nouveau hotel</Bouton>
           </Wrapper>
           <Hotels>
             {hotels.map((obj, index) => (
@@ -128,7 +148,7 @@ const page = () => {
             ))}
           </Hotels>
         </Centre>
-      </div>
+      </Container>
     </main>
   );
 };

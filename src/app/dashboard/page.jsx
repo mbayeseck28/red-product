@@ -37,7 +37,6 @@ const Wrapper = styled.div`
   background-color: white;
   box-shadow: 0px 2.6662580966949463px 2.6662580966949463px 0px #00000008;
   padding: 1em 3%;
-  min-height: 100px;
 `;
 
 const Small = styled.p`
@@ -60,13 +59,28 @@ const Centre = styled.div`
   }
 `;
 
+const Gauche = styled.div`
+  width: 20%;
+
+  @media only screen and (max-width: 700px) {
+    width: 0;
+  }
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #f7fafc;
+  height: 100vh;
+`;
+
 const page = () => {
   return (
     <main>
-      <div className="flex flex-wrap bg-slate-100">
-        <div className="w-[20%]">
+      <Container>
+        <Gauche>
           <Sidebar />
-        </div>
+        </Gauche>
         <Centre>
           <Navbar />
           <Wrapper>
@@ -79,7 +93,7 @@ const page = () => {
             ))}
           </Cartes>
         </Centre>
-      </div>
+      </Container>
     </main>
   );
 };

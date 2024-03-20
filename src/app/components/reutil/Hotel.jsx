@@ -8,12 +8,15 @@ const Conteneur = styled.div`
   box-shadow: 0px 2.6662580966949463px 2.6662580966949463px 0px #00000008;
   border-radius: 15px;
   min-height: 300px;
-  @media only screen and (max-width: 850px) {
-    width: 450px;
+  /* @media only screen and (max-width: 940px) {
+    width: 300px;
+  } */
+  @media only screen and (max-width: 500px) {
+    width: 320px;
   }
-  @media only screen and (max-width: 600px) {
-    width: 250px;
-  }
+  /* @media only screen and (max-width: 600px) {
+    width: 100%;
+  } */
 `;
 
 const Image = styled.div`

@@ -60,13 +60,26 @@ const Centre = styled.div`
   }
 `;
 
+const Gauche = styled.div`
+  width: 20%;
+
+  @media only screen and (max-width: 700px) {
+    width: 0;
+  }
+`;
+const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #f7fafc;
+`;
+
 const page = () => {
   return (
     <main>
-      <div className="flex flex-wrap bg-slate-100">
-        <div className="w-[20%]">
+      <Container>
+        <Gauche>
           <Sidebar />
-        </div>
+        </Gauche>
         <Centre>
           <Navbar />
           <Wrapper>
@@ -79,7 +92,7 @@ const page = () => {
             ))}
           </Cartes>
         </Centre>
-      </div>
+      </Container>
     </main>
   );
 };
