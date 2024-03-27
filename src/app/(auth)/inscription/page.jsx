@@ -1,8 +1,10 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Link from "next/link";
-import { BiLogoVenmo } from "react-icons/bi";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import MyLogo from "@/app/components/logo/MyLogo";
 
 const Background = styled.section`
   width: 100%;
@@ -15,24 +17,6 @@ const Background = styled.section`
   background-size: cover;
 `;
 
-const Logo = styled.a`
-  display: flex;
-  gap: 15px;
-  align-items: start;
-  color: white;
-  text-decoration: none;
-  margin-bottom: 2em;
-`;
-const Icon = styled.span`
-  width: 23px;
-  height: 23px;
-`;
-const TextLogo = styled.p`
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 21.33px;
-  text-align: left;
-`;
 const ContainForm = styled.div`
   display: flex;
   flex-direction: column;
@@ -99,23 +83,68 @@ const Bouton = styled.button`
   width: 100%;
 `;
 
-const page = () => {
+const Page = () => {
+  const [formData, setFormData] = useState({
+    nom: "",
+    email: "",
+    password: "",
+  });
+
+  const router = useRouter();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = axios.post(
+        "http://localhost:4000/api/auth/signup",
+        formData
+      );
+      setFormData({
+        nom: "",
+        email: "",
+        password: "",
+      });
+      alert("Inscription réussi!");
+      router.push("connexion");
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+      alert("Merci de remplir correctement le formulaire ");
+    }
+  };
+
   return (
     <Background>
       <ContainForm>
-        <Link href="/" passHref>
-          <Logo>
-            <Icon>
-              <BiLogoVenmo className="w-[23px] h-[23px]" />
-            </Icon>
-            <TextLogo>RED PRODUCT</TextLogo>
-          </Logo>
-        </Link>
-        <Formulaire>
+        <MyLogo />
+        <Formulaire onSubmit={handleSubmit}>
           <Titre>Inscrivez-vous en tant que Admin</Titre>
-          <Input type="text" placeholder="Nom" />
-          <Input type="text" placeholder="E-mail" />
-          <Input type="text" placeholder="Mot de passe" />
+          <Input
+            type="text"
+            placeholder="Nom"
+            name="nom"
+            value={formData.nom}
+            onChange={handleChange}
+          />
+          <Input
+            type="text"
+            placeholder="E-mail"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+          <Input
+            type="password"
+            placeholder="Mot de passe"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
           <CheckBox>
             <Check type="checkbox" name="check" />
             <Label for="check">Accepter les termes et la politique</Label>
@@ -133,4 +162,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

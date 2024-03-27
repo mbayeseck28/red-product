@@ -44,14 +44,14 @@ const Desc = styled.h5`
   font-weight: 300;
 `;
 
-const Carte = ({ icon, color }) => {
+const Carte = ({ icon, color, nombre, titre }) => {
   return (
     <Conteneur>
       <Icon color={color}>{icon}</Icon>
       <div>
         <Inf>
-          <Chiffre>125</Chiffre>
-          <Titre> formulaires</Titre>
+          <Chiffre>{nombre}</Chiffre>
+          <Titre>{titre}</Titre>
         </Inf>
         <Desc>Je ne sais pas quoi mettre</Desc>
       </div>

@@ -1,8 +1,10 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Link from "next/link";
 import { BiLogoVenmo } from "react-icons/bi";
+import axios from "axios";
+import MyLogo from "@/app/components/logo/MyLogo";
 
 const Background = styled.section`
   width: 100%;
@@ -15,24 +17,6 @@ const Background = styled.section`
   background-size: cover;
 `;
 
-const Logo = styled.a`
-  display: flex;
-  gap: 15px;
-  align-items: start;
-  color: white;
-  text-decoration: none;
-  margin-bottom: 2em;
-`;
-const Icon = styled.span`
-  width: 23px;
-  height: 23px;
-`;
-const TextLogo = styled.p`
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 21.33px;
-  text-align: left;
-`;
 const ContainForm = styled.div`
   display: flex;
   flex-direction: column;
@@ -93,25 +77,43 @@ const Bouton = styled.button`
   width: 100%;
 `;
 
-const page = () => {
+const Page = () => {
+  const [email, setEmail] = useState("");
+
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/auth/forgot-password",
+        { email }
+      );
+      setMessage(response.data.message);
+    } catch (error) {
+      console.error(
+        "Erreur lors de la demande de réinitialisation de mot de passe :",
+        error
+      );
+    }
+  };
+
   return (
     <Background>
       <ContainForm>
-        <Link href="/" passHref>
-          <Logo>
-            <Icon>
-              <BiLogoVenmo className="w-[23px] h-[23px]" />
-            </Icon>
-            <TextLogo>RED PRODUCT</TextLogo>
-          </Logo>
-        </Link>
-        <Formulaire>
+        <MyLogo />
+        <Formulaire onSubmit={handleSubmit}>
           <Titre>Mot de passe oublié?</Titre>
           <Texte>
             Entrez votre adresse e-mail ci-dessous et nous vous envoyons des
             instructions sur la façon de modifier votre mot de passe.
           </Texte>
-          <Input type="text" placeholder="Votre e-mail" />
+          <Input
+            type="text"
+            placeholder="Votre e-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <Bouton>Envoyer</Bouton>
         </Formulaire>
         <PasCompte>
@@ -120,9 +122,10 @@ const page = () => {
             <Right>connexion</Right>
           </Link>
         </PasCompte>
+        {message && <p>{message}</p>}
       </ContainForm>
     </Background>
   );
 };
 
-export default page;
+export default Page;
